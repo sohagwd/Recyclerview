@@ -1,16 +1,19 @@
 package com.fery.recyclerview
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fery.recyclerview.databinding.RvItemBinding
 
-class Adapter(var context: Context, list: List<User>): RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(var context: Context, var list: List<User>): RecyclerView.Adapter<Adapter.ViewHolder>() {
     class ViewHolder(var binding: RvItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view= layoutInflater.from(context).inflate(R.layout.rv_item, parent,attachToRoot:false)
+        val binding = RvItemBinding.inflate(LayoutInflater.from(context),parent, false)
+        return ViewHolder(binding)
+
     }
 
     override fun getItemCount(): Int {
@@ -18,7 +21,10 @@ class Adapter(var context: Context, list: List<User>): RecyclerView.Adapter<Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+       holder.binding.name.text= list.get(position).name
+       holder.binding.email.text= list.get(position).email
+       holder.binding.sub.text= list.get(position).sub
+       holder.binding.birthdate.text= list.get(position).birthdate
     }
 
 }
